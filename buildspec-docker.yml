@@ -1,0 +1,35 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 19
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - eval $(aws ecr get-login --region us-east-1 --no-include-email)
+      - REPOSITORY_URI=027502230729.dkr.ecr.us-east-1.amazonaws.com/ssk-backend
+      - if echo $CODEBUILD_INITIATOR | grep -qe "-dev$"; then REPOSITORY_URI=$REPOSITORY_URI-dev;ENV_TYPE=DEV;fi;
+      - if echo $CODEBUILD_INITIATOR | grep -qe "-stage$"; then REPOSITORY_URI=$REPOSITORY_URI-stage;ENV_TYPE=STAGE;fi;
+      - if echo $CODEBUILD_INITIATOR | grep -qe "-production$"; then REPOSITORY_URI=$REPOSITORY_URI-prod;ENV_TYPE=PROD;fi;
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+  build:
+    commands:
+      - echo Build started on `date`
+      - aws lambda invoke --function-name ssk-backend-env --invocation-type RequestResponse --region us-east-1 --payload "{\"envName\":\"/SSKAPP/${ENV_TYPE}/BACKEND/\"}" app_env.json
+      - cat app_env.json | jq -r '.body' >> .env
+      - echo Building the Docker image...
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing image definitions file...
+      - printf '[{"name":"ssk-backend","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+artifacts:
+    files: imagedefinitions.json

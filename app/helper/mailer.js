@@ -44,7 +44,7 @@ class Mailer {
   /* @Method: sendMail
     // @Description: For sendmail
     */
-  async sendMail(from, to, subject, tplName, locals) {
+  async sendMail(to, subject, tplName, locals) {
     try {
       let mailServerSetting = await mailServerSettingRepo.getByField({
         status: 'Active',
@@ -60,7 +60,7 @@ class Mailer {
       //var Email = new EmailTemplate(templateDir)
       const email = new Email({
         message: {
-          from: from,
+          from: `Ratoons<${process.env.MAIL_USERNAME}>`,
         },
         transport: {
           jsonTransport: true,
@@ -78,7 +78,7 @@ class Mailer {
 
       if (getResponse) {
         let options = {
-          from: from,
+          from: `Ratoons<${process.env.MAIL_USERNAME}>`,
           to: to,
           subject: subject,
           html: getResponse,

@@ -12,9 +12,11 @@ const deleted = [true, false];
 const gendertype = ['Men', 'Women', 'Transgender', 'Shemale'];
 const heightUnit = ['Feet', 'Inches'];
 const co_streaming_request = ['nobody', 'mutual_friends', 'subscribers'];
+const { ObjectId } = require('bson');
 
 var UserSchema = new Schema(
   {
+    _id: { type: String, default: () => new ObjectId().toString(), required: true },
     full_name: { type: String, default: '', required: true },
     role: { type: Schema.Types.ObjectId, ref: 'Role' },
     atheletic_id: {

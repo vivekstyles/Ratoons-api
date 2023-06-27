@@ -1,9 +1,12 @@
 const { createAdapter } = require('@socket.io/mongo-adapter');
 const { MongoClient } = require('mongodb');
+const { UUID } = require('bson');
 const COLLECTION = 'socket.io-adapter-events';
-const DB = 'ssk';
+const DB = 'ratoons_socket';
 const mongoClient = new MongoClient(process.env.MONGO_URL, {
   useUnifiedTopology: true,
+  // this will allow you to store string
+  pkFactory: { createPk: () => new UUID().toBinary() },
 });
 const main = async (io) => {
   console.log('Connecting adapter');

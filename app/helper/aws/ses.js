@@ -1,6 +1,6 @@
 const AWS = require('aws-sdk');
 const ses = new AWS.SES({ region: 'us-east-1' });
-class AwsSES {
+class AwsSES { 
   async sendEmail(to, subject, html, text) {
     try {
       const params = {

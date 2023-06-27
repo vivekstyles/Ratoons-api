@@ -179,13 +179,12 @@ class UserController {
         site_title: 'Ratoons',
       };
       const test = await mailer.sendMail(
-        `Ratoons<${process.env.MAIL_USERNAME}>`,
         req.body.email,
         'Welcome',
         'registration',
         locals,
       );
-      console.log('------------>',test)
+      console.log('------------>', test);
       if (addInviteNotification) {
         invite.user = userData._id;
         await invite.save();
@@ -980,7 +979,7 @@ class UserController {
 
   async sendOtpToEmail(user) {
     const otp = await this.generateOTP();
-    console.log(otp)
+    console.log(otp);
     //mark prev generated otps as inactive
     await otpRepo.expirePreviousOtps(user, 'email');
     //create new otp

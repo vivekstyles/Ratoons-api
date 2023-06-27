@@ -331,14 +331,18 @@ const onError = (error) => {
     if (!isProd && process.env.SHOW_NAMED_ROUTES === 'true') {
       routeList = namedRouter.getRouteTable();
     }
-    const generalSettingRepo = require('./app/modules/generalSetting/repositories/generalSetting.repository');
+    // vivek commanded starts
+    // const generalSettingRepo = require('./app/modules/generalSetting/repositories/generalSetting.repository');
 
-    let general = await generalSettingRepo.getByField({
-      isDeleted: false,
-      status: 'Active',
-    });
+    // let general = await generalSettingRepo.getByField({
+    //   isDeleted: false,
+    //   status: 'Active',
+    // });
 
-    global.site_name = general.site_title;
+    // global.site_name = general.site_title;
+    // vivek commanded ends
+    global.site_name = 'ratoons';
+  
     // console.log(global.site_name.site_title);
     /******************* Service Launch *****************/
     //Set up swagger

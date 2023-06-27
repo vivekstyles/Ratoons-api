@@ -1,5 +1,6 @@
 const config = require('../config');
 const ses = require('./aws/ses');
+const mailer = require('./mailer');
 
 const nodemailer = require('nodemailer');
 
@@ -212,6 +213,20 @@ class EmailTemplates {
   }
 
   async verificationSuccess(username, email) {
+    let locals = {
+      full_name: username,
+      email: email,
+      site_title: 'Ratoons',
+    };
+
+    const res = await mailer.sendMail(
+      email,
+      'Welcome',
+      'registration',
+      locals,
+    );
+    return res;
+
     const emailContent = `
       <div style="margin-top: 20px; margin-bottom: 10px;">
         <p>Hello ${username},</p>

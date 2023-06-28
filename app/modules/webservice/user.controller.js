@@ -41,7 +41,7 @@ class UserController {
 
   async createTokens(user, deviceId) {
     await user.populate({ path: 'role', select: 'role' });
-    const payload = { id: user._id, deviceId: deviceId, role: user.role.role };
+    const payload = { id: user._id, deviceId: deviceId, role: user.role?.role };
     return jwt.sign(payload, config.jwtSecret, {});
   }
 

@@ -6,7 +6,7 @@ const config = require('../config');
 const options = {
   definition: {
     openapi: '3.0.0',
-    info: { title: 'Social Scorekeeper API', version: '1.0.0' },
+    info: { title: 'Ratoons API', version: '1.0.0' },
   },
   apis: [
     './app/routes/api/discount_code.router.js',

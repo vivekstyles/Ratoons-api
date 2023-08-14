@@ -38,7 +38,7 @@ namedRouter.get('api.recruiter.get', '/recruiter', async (req, res) => {
     res.status(500).send({ status: 500, message: e.message });
   }
 });
- 
+
 /**
  * @swagger
  * /api/recruiter:

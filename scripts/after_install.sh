@@ -11,16 +11,30 @@ log_message "Starting after_install.sh script"
 if ! command -v node &> /dev/null
 then
     log_message "Node.js not found. Installing Node.js and npm..."
-    curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
     sudo apt-get install -y nodejs
     log_message "Node.js and npm installation completed"
 else
     log_message "Node.js is already installed"
 fi
 
+# Check for npm specifically
+if ! command -v npm &> /dev/null
+then
+    log_message "npm not found. Attempting to install npm..."
+    sudo apt-get install -y npm
+    log_message "npm installation completed"
+else
+    log_message "npm is already installed"
+fi
+
 # Log Node.js and npm versions
 log_message "Node.js version: $(node --version)"
 log_message "npm version: $(npm --version)"
+
+# Add npm to PATH if it's not there
+export PATH="$PATH:/usr/bin:/usr/local/bin"
+log_message "Updated PATH: $PATH"
 
 # Navigate to your application directory
 APP_DIR="/var/www/html"  # Adjust this path if your app is in a different directory

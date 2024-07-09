@@ -5,7 +5,7 @@ LOG_FILE="/tmp/start_application.log"
 
 # Function to log messages
 log_message() {
-    echo "$(date): $1" >> $LOG_FILE
+    echo "$(date -u): $1" >> $LOG_FILE
 }
 
 log_message "Starting application script"
@@ -27,20 +27,49 @@ cd /var/www/html || { log_message "Failed to change directory to /var/www/html";
 
 # List installed packages
 log_message "Installed packages:"
-npm list >> $LOG_FILE 2>&1
+npm list --depth=0 >> $LOG_FILE 2>&1
 
-# Try to install npx globally
-log_message "Attempting to install npx globally"
-npm install -g npx >> $LOG_FILE 2>&1
+# Try to install npx globally if not already installed
+if ! command -v npx &> /dev/null
+then
+    log_message "Attempting to install npx globally"
+    npm install -g npx >> $LOG_FILE 2>&1
+fi
 
 # Start the application
 log_message "Starting the application"
-npm start >> $LOG_FILE 2>&1
-
-# Check the exit status
-if [ $? -ne 0 ]; then
-    log_message "Failed to start the application"
-    exit 1
-else
+if npm start >> $LOG_FILE 2>&1; then
     log_message "Application started successfully"
+else
+    log_message "Failed to start the application. Error output:"
+    tail -n 20 $LOG_FILE >> $LOG_FILE
+    log_message "Checking for common issues:"
+    
+    # Check disk space
+    log_message "Disk space:"
+    df -h >> $LOG_FILE 2>&1
+    
+    # Check memory usage
+    log_message "Memory usage:"
+    free -h >> $LOG_FILE 2>&1
+    
+    # Check if package.json exists and has a start script
+    if [ -f "package.json" ]; then
+        if grep -q '"start"' package.json; then
+            log_message "package.json exists and contains a start script"
+        else
+            log_message "package.json exists but doesn't contain a start script"
+        fi
+    else
+        log_message "package.json not found in the current directory"
+    fi
+    
+    # Check for node_modules directory
+    if [ -d "node_modules" ]; then
+        log_message "node_modules directory exists"
+    else
+        log_message "node_modules directory not found. Try running 'npm install'"
+    fi
+    
+    exit 1
 fi

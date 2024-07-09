@@ -43,7 +43,7 @@ cd $APP_DIR || { log_message "Failed to change directory to $APP_DIR"; exit 1; }
 
 # Install dependencies
 log_message "Installing dependencies with npm..."
-npm install
+sudo npm install
 if [ $? -eq 0 ]; then
     log_message "npm install completed successfully"
 else

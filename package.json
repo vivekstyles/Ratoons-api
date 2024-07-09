@@ -5,9 +5,9 @@
   "main": "ratoons.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx nodemon ratoons.js",
-    "dev": "npx nodemon server.js",
-    "prod": "npx nodemon server.js"
+    "start": "npx ratoons.js",
+    "dev": "npx server.js",
+    "prod": "npx server.js"
   },
   "engines": {
     "node": ">=8.x",

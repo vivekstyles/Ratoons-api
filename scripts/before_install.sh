@@ -15,5 +15,5 @@ mkdir -p /var/www/html
 # Log directory recreation
 echo "Recreated /var/www/html/ directory" >> /tmp/deployment_log.txt
 
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo bash -
 sudo apt-get install -y nodejs

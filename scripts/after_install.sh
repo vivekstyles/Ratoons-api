@@ -7,28 +7,50 @@ log_message() {
 
 log_message "Starting after_install.sh script"
 
-# ... [Previous parts of the script remain the same] ...
+# Install build essentials and libcurl
+log_message "Installing build essentials and libcurl..."
+sudo apt-get update
+sudo apt-get install -y build-essential python3 libcurl4-openssl-dev
+
+# Install Node.js LTS version if not already installed
+if ! command -v node &> /dev/null
+then
+    log_message "Node.js not found. Installing Node.js LTS..."
+    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+    log_message "Node.js LTS installation completed"
+else
+    log_message "Node.js is already installed"
+fi
+
+# Log Node.js and npm versions
+log_message "Node.js version: $(node --version)"
+log_message "npm version: $(npm --version)"
 
 # Navigate to your application directory
 APP_DIR="/var/www/html"
 log_message "Changing directory to $APP_DIR"
 cd $APP_DIR || { log_message "Failed to change directory to $APP_DIR"; exit 1; }
 
+# Clear npm cache
+log_message "Clearing npm cache..."
+sudo npm cache clean -f
+
 # Install dependencies
 log_message "Installing dependencies with npm..."
-if [ -f "package-lock.json" ]; then
-    log_message "package-lock.json found, using npm ci"
-    sudo npm ci --no-audit --no-fund
-else
-    log_message "package-lock.json not found, using npm install"
-    sudo npm install --no-audit --no-fund
-fi
+sudo npm install --no-audit --no-fund
 
 if [ $? -eq 0 ]; then
     log_message "npm installation completed successfully"
 else
-    log_message "npm installation failed"
-    exit 1
+    log_message "npm installation failed. Attempting to rebuild node-libcurl..."
+    sudo npm rebuild node-libcurl
+    if [ $? -eq 0 ]; then
+        log_message "node-libcurl rebuild successful"
+    else
+        log_message "node-libcurl rebuild failed"
+        exit 1
+    fi
 fi
 
 log_message "after_install.sh script completed"

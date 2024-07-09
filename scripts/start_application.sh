@@ -41,22 +41,10 @@ log_message "Clearing npm cache and reinstalling dependencies"
 npm cache clean --force >> $LOG_FILE 2>&1
 rm -rf node_modules >> $LOG_FILE 2>&1
 npm install >> $LOG_FILE 2>&1
-
-# Ensure npx is installed locally
-log_message "Installing npx locally"
-npm install npx --save-dev >> $LOG_FILE 2>&1
-
-# Start the application in the background
-log_message "Starting the application in the background"
-nohup npm start >> $LOG_FILE 2>&1 &
-
-# Wait a short time to see if the application crashes immediately
-sleep 10
-
-# Check if the application is still running
-if pgrep -f "npm start" > /dev/null
-then
-    log_message "Application started successfully and is running in the background"
+# Start the application
+log_message "Starting the application"
+if npm start >> $LOG_FILE 2>&1; then
+    log_message "Application started successfully"
 else
     log_message "Failed to start the application. Error output:"
     tail -n 20 $LOG_FILE >> $LOG_FILE
@@ -90,5 +78,3 @@ else
     
     exit 1
 fi
-
-log_message "Start application script completed"

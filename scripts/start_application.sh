@@ -36,6 +36,16 @@ then
     npm install -g npx >> $LOG_FILE 2>&1
 fi
 
+# Clean npm cache, remove node_modules, and reinstall dependencies
+log_message "Clearing npm cache and reinstalling dependencies"
+npm cache clean --force >> $LOG_FILE 2>&1
+rm -rf node_modules >> $LOG_FILE 2>&1
+npm install >> $LOG_FILE 2>&1
+
+# Ensure npx is installed locally
+log_message "Installing npx locally"
+npm install npx --save-dev >> $LOG_FILE 2>&1
+
 # Start the application
 log_message "Starting the application"
 if npm start >> $LOG_FILE 2>&1; then

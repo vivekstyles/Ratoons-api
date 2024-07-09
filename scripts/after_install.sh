@@ -46,12 +46,26 @@ rm -rf node_modules
 
 # Install dependencies
 log_message "Installing dependencies with npm..."
-npm install
+npm install --legacy-peer-deps
 if [ $? -eq 0 ]; then
     log_message "npm install completed successfully"
 else
     log_message "npm install failed"
     exit 1
+fi
+
+# Check and upgrade express if necessary
+log_message "Checking for outdated express version..."
+OUTDATED_EXPRESS=$(npm list express | grep 'express@2.5.9')
+if [ "$OUTDATED_EXPRESS" != "" ]; then
+    log_message "Outdated express version found. Upgrading express..."
+    npm install express@latest
+    if [ $? -eq 0 ]; then
+        log_message "Express upgraded successfully"
+    else
+        log_message "Failed to upgrade express"
+        exit 1
+    fi
 fi
 
 log_message "after_install.sh script completed"

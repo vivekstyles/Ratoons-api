@@ -40,10 +40,10 @@ fi
 log_message "Clearing npm cache and reinstalling dependencies"
 npm cache clean --force >> $LOG_FILE 2>&1
 rm -rf node_modules >> $LOG_FILE 2>&1
-npm install >> $LOG_FILE 2>&1
+# npm install >> $LOG_FILE 2>&1
 # Start the application
 log_message "Starting the application"
-if npm start >> $LOG_FILE 2>&1; then
+if npx nodemon ratoons.js >> $LOG_FILE 2>&1; then
     log_message "Application started successfully"
 else
     log_message "Failed to start the application. Error output:"

@@ -99,32 +99,42 @@ log_message "Node.js version: $(node --version)"
 log_message "npm version: $(npm --version)"
 log_message "started.............."
 
-# Navigate to the application directory
-cd /var/www/html || { log_message "Failed to change directory to /var/www/html"; exit 1; }
+# # Navigate to the application directory
+# cd /var/www/html || { log_message "Failed to change directory to /var/www/html"; exit 1; }
 
-log_message "Current directory: $(pwd), Permissions: $(ls -ld .)"
-log_message "package.json exists: $(test -f package.json && echo 'Yes' || echo 'No')"
+# log_message "Current directory: $(pwd), Permissions: $(ls -ld .)"
+# log_message "package.json exists: $(test -f package.json && echo 'Yes' || echo 'No')"
 
-log_message "Clearing npm cache"
-sudo npm cache clean --force >> "$INSTALL_LOG" 2>&1
+# log_message "Clearing npm cache"
+# sudo npm cache clean --force >> "$INSTALL_LOG" 2>&1
 
-log_message "Running npm install..."
-sudo npm install
-if [ $? -eq 0 ]; then
-  log_message "Dependencies installed successfully"
-else
-  log_message "Failed to install dependencies. Error output:"
-  cat "$INSTALL_LOG"
-  exit 1
-fi
+# log_message "Running npm install..."
+# sudo npm install
+# if [ $? -eq 0 ]; then
+#   log_message "Dependencies installed successfully"
+# else
+#   log_message "Failed to install dependencies. Error output:"
+#   cat "$INSTALL_LOG"
+#   exit 1
+# fi
 
-log_message "node_modules directory exists: $(test -d node_modules && echo 'Yes' || echo 'No')"
+# log_message "node_modules directory exists: $(test -d node_modules && echo 'Yes' || echo 'No')"
 
-log_message "ratoons starting................."
-if npx --yes nodemon ratoons.js >> "$LOG_FILE" 2>&1; then
-  log_message "Application started successfully"
-else
-  log_message "Failed to start the application. Error output:"
-  # ... (copy existing error handling logic here)
-fi
+# log_message "ratoons starting................."
+# if npx --yes nodemon ratoons.js >> "$LOG_FILE" 2>&1; then
+#   log_message "Application started successfully"
+# else
+#   log_message "Failed to start the application. Error output:"
+#   # ... (copy existing error handling logic here)
+# fi
 
+#!/bin/bash
+
+set -e
+
+cd /var/www/html
+
+npm install
+
+# Your application start command (e.g., node ratoons.js)
+npx --yes nodemon ratoons.js

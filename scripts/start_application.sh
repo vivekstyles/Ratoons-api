@@ -142,7 +142,7 @@ cd /home/vivek-s/Public/ratoons/Ratoons-api
 rm -rf node_modules
 npm install --unsafe-perm
 
-log_message "Ratoons API Going To Start..............!!!!!!!!"
+log_message "Ratoons API Going To Start..............!!!!!!!!"`
 # Create the missing directory
 mkdir -p /root/.npm-global/lib
 

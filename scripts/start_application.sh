@@ -136,7 +136,7 @@ log_message "started.............."
 sudo apt-get update
 sudo apt-get install -y libvips-dev
 
-cd /home/vivek-s/Public/ratoons/Ratoons-api
+cd /var/www/html
 
 # Remove node_modules and reinstall
 rm -rf node_modules

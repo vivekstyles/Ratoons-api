@@ -139,7 +139,10 @@ sudo apt-get install -y libvips-dev
 cd /var/www/html
 
 # Remove node_modules and reinstall
-rm -rf node_modules
+rm -rf node_modules package-lock.json
+
+# Clear npm cache
+npm cache clean --force
 npm install --unsafe-perm
 
 log_message "Ratoons API Going To Start..............!!!!!!!!"

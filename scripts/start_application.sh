@@ -85,8 +85,8 @@
 # #!/bin/bash
 
 # # Log file
-LOG_FILE="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/start_application.log"
-INSTALL_LOG="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/npm_install.log"
+LOG_FILE="/tmp/start_application.log"
+INSTALL_LOG="/tmp/npm_install.log"
 
 
 # # Navigate to the application directory
@@ -142,9 +142,11 @@ cd /var/www/html
 rm -rf node_modules
 npm install --unsafe-perm
 
-log_message "Ratoons API Going To Start..............!!!!!!!!"`
-# Create the missing directory
-mkdir -p /root/.npm-global/lib
+log_message "Ratoons API Going To Start..............!!!!!!!!"
+
+# Create the missing directory and set permissions
+sudo mkdir -p /root/.npm-global/lib
+sudo chown -R $(whoami) /root/.npm-global
 
 # Set the npm global path
 npm config set prefix '/root/.npm-global'
@@ -156,5 +158,8 @@ source ~/.bashrc
 # Reinstall nodemon globally
 npm install -g nodemon
 
+# Install node-libcurl separately
+npm install node-libcurl --unsafe-perm
+
 # Run the original command
-npx --yes nodemon ratoons.js >> "$INSTALL_LOG"
+npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1

@@ -85,19 +85,9 @@
 # #!/bin/bash
 
 # # Log file
-LOG_FILE="/tmp/start_application.log"
-INSTALL_LOG="/tmp/npm_install.log"
+LOG_FILE="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/start_application.log"
+INSTALL_LOG="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/npm_install.log"
 
-
-# Function to log messages
-log_message() {
-  echo "$(date -u): $1" >> "$LOG_FILE"
-  echo "$(date -u): $1"
-}
-
-log_message "Node.js version: $(node --version)"
-log_message "npm version: $(npm --version)"
-log_message "started.............."
 
 # # Navigate to the application directory
 # cd /var/www/html || { log_message "Failed to change directory to /var/www/html"; exit 1; }
@@ -130,11 +120,41 @@ log_message "started.............."
 
 #!/bin/bash
 
-set -e
+# set -e
 
-cd /var/www/html
+# Function to log messages
+log_message() {
+  echo "$(date -u): $1" >> "$LOG_FILE"
+  echo "$(date -u): $1"
+}
 
-npm install
+log_message "Node.js version: $(node --version)"
+log_message "npm version: $(npm --version)"
+log_message "started.............."
 
-# Your application start command (e.g., node ratoons.js)
-npx --yes nodemon ratoons.js
+# Install system dependencies for sharp
+sudo apt-get update
+sudo apt-get install -y libvips-dev
+
+cd /home/vivek-s/Public/ratoons/Ratoons-api
+
+# Remove node_modules and reinstall
+rm -rf node_modules
+npm install --unsafe-perm
+
+log_message "Ratoons API Going To Start..............!!!!!!!!"
+# Create the missing directory
+mkdir -p /root/.npm-global/lib
+
+# Set the npm global path
+npm config set prefix '/root/.npm-global'
+
+# Add the new path to system PATH
+echo 'export PATH=/root/.npm-global/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+
+# Reinstall nodemon globally
+npm install -g nodemon
+
+# Run the original command
+npx --yes nodemon ratoons.js >> "$INSTALL_LOG"

@@ -163,6 +163,6 @@ npm install -g nodemon
 
 # Install node-libcurl separately
 npm install node-libcurl --unsafe-perm
-
+log_message 'End---------->'
 # Run the original command
-npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1
+# npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1

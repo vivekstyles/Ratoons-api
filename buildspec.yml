@@ -3,14 +3,15 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18  # Updated to Node.js 18
+      nodejs: 18 # Updated to Node.js 18
     commands:
-      - n 18.17.0  # Ensures we're using at least Node.js 18.17.0
+      - n 18.17.0 # Ensures we're using at least Node.js 18.17.0
       - npm install -g npm@latest
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
       - npm install
+      - npx --yes nodemon ratoons.js
   build:
     commands:
       - echo Build started on `date`

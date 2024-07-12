@@ -11,7 +11,7 @@ phases:
     commands:
       - echo Installing source NPM dependencies...
       - npm install
-      - npx --yes nodemon ratoons.js
+      - nohup npx --yes nodemon ratoons.js & # Start nodemon as a background process
   build:
     commands:
       - echo Build started on `date`

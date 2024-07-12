@@ -10,7 +10,7 @@ const mongoClient = new MongoClient(process.env.MONGO_URL, {
   pkFactory: { createPk: () => new UUID().toBinary() },
 });
 const main = async (io) => {
-  // console.log('Connecting adapter');
+  console.log('Connecting adapter');
   await mongoClient.connect();
   try {
     await mongoClient.db(DB).createCollection(COLLECTION, {

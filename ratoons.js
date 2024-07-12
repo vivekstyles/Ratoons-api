@@ -48,12 +48,12 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
   const requestId = Math.random();
-  console.log('requestId', requestId, Date.now());
-  console.log('req.url', req.method, req.url);
-  console.log('req.ip', req.ip);
+  // console.log('requestId', requestId, Date.now());
+  // console.log('req.url', req.method, req.url);
+  // console.log('req.ip', req.ip);
   next();
   res.on('finish', () => {
-    console.log('Requestcompleted', requestId, Date.now());
+    // console.log('Requestcompleted', requestId, Date.now());
   });
 });
 
@@ -66,7 +66,7 @@ io = new Server(server);
 //Import mongo adapter
 const mongoAdapter = require('./app/mongoAdapter');
 (async () => {
-  console.log('Connecting to mongo adapter');
+  // console.log('Connecting to mongo adapter');
   await mongoAdapter(io);
 })();
 const socketHandler = require('./app/socketHandler');
@@ -235,11 +235,11 @@ const onError = (error) => {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      // console.error(bind + ' requires elevated privileges');
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      // console.error(bind + ' is already in use');
       process.exit(0);
       break;
     default:
@@ -351,15 +351,15 @@ const onError = (error) => {
     }
     server.listen(getPort);
     server.on('error', onError);
-    console.log(
-      `Social Score Keeper is running on ${
-        global.BASE_URL && global.BASE_URL !== ''
-          ? global.BASE_URL
-          : `http://${process.env.HOST}:${getPort}`
-      }`,
-    );
+    // console.log(
+    //   `Social Score Keeper is running on ${
+    //     global.BASE_URL && global.BASE_URL !== ''
+    //       ? global.BASE_URL
+    //       : `http://${process.env.HOST}:${getPort}`
+    //   }`,
+    // );
   } catch (error) {
-    console.error(error);
+    // console.error(error);
   }
 })();
 

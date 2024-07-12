@@ -42,6 +42,6 @@ const swaggerDocs = (app, port) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(swaggerSpec);
   });
-  console.log(`Version 1 Docs are available on ${global.BASE_URL}/docs`);
+  // console.log(`Version 1 Docs are available on ${global.BASE_URL}/docs`);
 };
 module.exports = { swaggerDocs };

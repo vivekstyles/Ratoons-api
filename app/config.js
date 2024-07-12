@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const path = require('path');
 const isProd = process.env.NODE_ENV === 'prod';
-console.log(process.env.NODE_ENV);
+// console.log(process.env.NODE_ENV);
 const configs = {
   HOST: process.env.HOST || 'localhost',
   NODE_ENV: process.env.NODE_ENV || 'local',

@@ -7,6 +7,7 @@ phases:
     commands:
       - n 18.17.0 # Ensures we're using at least Node.js 18.17.0
       - npm install -g npm@latest
+      - export $(cat .env | xargs) # Load environment variables from .env file
   pre_build:
     commands:
       - echo Installing source NPM dependencies...

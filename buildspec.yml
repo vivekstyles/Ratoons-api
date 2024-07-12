@@ -1,42 +1,5 @@
 version: 0.2
 
-env:
-  variables:
-    NODE_ENV: local
-    HOST: localhost
-    PORT: 1533
-    ADMIN_FOLDER_NAME: admin
-    API_FOLDER_NAME: api
-    FRONT_FOLDER_NAME: front
-    DB_CONNECTION: moongose
-    DB_HOST: localhost
-    DB_PORT: 27017
-    DB_DATABASE: ssk
-    DB_USERNAME: developerT
-    DB_PASSWORD: pass*277
-    MONGO_URL: mongodb+srv://ratoons_vivek:8N66xUL9BCwVm44M@cluster0.smuuz46.mongodb.net/ratoons
-    MAIL_USERNAME: AKIAQMZ2CXTE6T6DAW7O
-    MAIL_PASSWORD: BMDrRbjAyp/z/DE3yKTuhlktmxWbG/DUq88KlqWePOkN
-    SSK_WEB_URL: https://app.socialscorekeeper.com/
-    GOOGLE_API_KEY: AIzaSyBGCvMX_dToRgRkog9hvf3WB4FXUzN0428
-    DEV_PORT: 1295
-    DEV_PORT_1: 1296
-    DEV_PORT_2: 1297
-    ASSET_URL: https://ssk-asset.s3.amazonaws.com/
-    VERIFY_PASS_KEY: X-Vfyps-Key
-    VERIFY_PASS_VALUE: ff817eb82a4941a25b1137d68
-    GOOGLEPLAY_PUBLISHER_SCOPE: https://www.googleapis.com/auth/androidpublisher
-    GOOGLEPLAY_SERVICE_JSON: ewogICJ0eXBlIjogInNlcnZpY2VfYWNjb3VudCIsCiAgInByb2plY3RfaWQiOiAic2l4dGgtYmVha2VyLT
-    APPSTORE_SHARED_KEY: d8abfce83e9d4366b8400f57982ec37e
-    APPSTORE_API_KEY_ID: W32W7U58J2
-    APPSTORE_ISSUER_ID: ce01427a-2715-47c3-a02f-6c0d973e0395
-    APPSTORE_VERIFY_RECEIPT_URL: https://sandbox.itunes.apple.com/verifyReceipt
-    APPSTORE_BUNDLE_ID: org.SocialScoreKeeper.ios
-    APPSTORE_SUBSCRIPTION_URL: https://api.storekit-sandbox.itunes.apple.com/inApps/v1/subscriptions/
-    APPSTORE_PEM_KEY: LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0t
-    FCM_CONFIG: ewogICJ0eXBlIjogInNlcnZpY2VfYWNjb3VudCIsCi
-    DEFAULT_IMG: https://ssk-asset.s3.amazonaws.com/dev/account.png
-
 phases:
   install:
     runtime-versions:

@@ -58,4 +58,4 @@ npm install -g nodemon >> "$INSTALL_LOG" 2>&1
 log_message 'Starting the application...'
 npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1
 
-log_message 'Done'
+# log_message 'Done'

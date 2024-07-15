@@ -7,16 +7,16 @@ hooks:
   BeforeInstall:
     - location: scripts/before_install.sh
       timeout: 300
-      runas: root
+      runas: ubuntu
   AfterInstall:
     - location: scripts/after_install.sh
       timeout: 300
-      runas: root
+      runas: ubuntu
   ApplicationStart:
     - location: scripts/start_application.sh
       timeout: 600
-      runas: root
+      runas: ubuntu
   ApplicationStop:
     - location: scripts/stop_application.sh
       timeout: 300
-      runas: root
+      runas: ubuntu

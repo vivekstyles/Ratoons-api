@@ -23,7 +23,7 @@ sudo rm -rf /usr/local/bin/npm /usr/local/share/man/man1/node* /usr/local/lib/dt
 echo "Removed existing Node.js and npm installations" >> /tmp/deployment_log.txt
 
 # Install Node.js and npm
-curl -fsSL https://deb.nodesource.com/setup_18.16.0 | sudo bash -
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo bash -
 sudo apt-get install -y nodejs
 
 # Log Node.js installation

@@ -77,7 +77,10 @@ log_message "started.............."
 
 # Install system dependencies for sharp
 sudo apt-get update
-sudo apt-get install -y build-essential libvips-dev python3
+sudo apt-get install -y build-essential libvips-dev python2
+
+# Set Python path for node-gyp
+sudo npm config set python /usr/bin/python2
 
 # Navigate to the application directory
 cd /var/www/html || { log_message "Failed to change directory"; exit 1; }
@@ -88,11 +91,11 @@ sudo rm -rf node_modules package-lock.json
 # Clear npm cache
 sudo npm cache clean --force
 
-# Set Python path for node-gyp
-sudo npm config set python /usr/bin/python3
-
 # Install node-gyp globally
 sudo npm install -g node-gyp
+
+# Install sharp with prebuilt binaries
+sudo npm install sharp --sharp-binary-host=https://github.com/lovell/sharp-libvips/releases/download/v8.15.1/ --unsafe-perm
 
 # Reinstall dependencies
 sudo npm install --unsafe-perm

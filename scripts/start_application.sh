@@ -3,15 +3,15 @@
 # INSTALL_LOG="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/npm_install.log"
 
 
-# Log file
-LOG_FILE="/tmp/start_application.log"
-INSTALL_LOG="/tmp/npm_install.log"
+# # Log file
+# LOG_FILE="/tmp/start_application.log"
+# INSTALL_LOG="/tmp/npm_install.log"
 
-# Function to log messages
-log_message() {
-  echo "$(date -u): $1" >> "$LOG_FILE"
-  echo "$(date -u): $1"
-}
+# # Function to log messages
+# log_message() {
+#   echo "$(date -u): $1" >> "$LOG_FILE"
+#   echo "$(date -u): $1"
+# }
 
 # log_message "Node.js version: $(node --version)"
 # log_message "npm version: $(npm --version)"
@@ -56,30 +56,51 @@ log_message() {
 # npm install -g nodemon >> "$INSTALL_LOG" 2>&1
 # # Run the application
 # log_message 'Starting the application...'
+# npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1
+
 
 #!/bin/bash
 
-# Update Node.js and npm
-nvm install node
-nvm use node
-npm install -g npm
+# Log file
+LOG_FILE="/tmp/start_application.log"
+INSTALL_LOG="/tmp/npm_install.log"
 
-# Clean and reinstall node modules
-cd /var/www/html
-rm -rf node_modules
-npm install
+# Function to log messages
+log_message() {
+  echo "$(date -u): $1" >> "$LOG_FILE"
+  echo "$(date -u): $1"
+}
 
-# Install build tools
+log_message "Node.js version: $(node --version)"
+log_message "npm version: $(npm --version)"
+log_message "started.............."
+
+# Install system dependencies for sharp
 sudo apt-get update
-sudo apt-get install -y build-essential python3
+sudo apt-get install -y build-essential libvips-dev python3
 
-# Update node-gyp
-npm install -g node-gyp
+# Navigate to the application directory
+cd /var/www/html || { log_message "Failed to change directory"; exit 1; }
+
+# Remove node_modules and reinstall
+rm -rf node_modules package-lock.json
+
+# Clear npm cache
+npm cache clean --force
 
 # Set Python path for node-gyp
 npm config set python /usr/bin/python3
 
-# Install sharp with prebuilt binaries
-npm install sharp --sharp-binary-host=https://github.com/lovell/sharp-libvips/releases/download/v8.15.1/
+# Install node-gyp globally
+npm install -g node-gyp
 
+# Reinstall dependencies
+npm install --unsafe-perm
+
+log_message 'End---------->'
+npm install -g nodemon >> "$INSTALL_LOG" 2>&1
+
+# Run the application
+log_message 'Starting the application...'
 npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1
+

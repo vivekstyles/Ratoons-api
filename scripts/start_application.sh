@@ -1,69 +1,11 @@
 
-# LOG_FILE="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/start_application.log"
-# INSTALL_LOG="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/npm_install.log"
+LOG_FILE="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/start_application.log"
+INSTALL_LOG="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/npm_install.log"
 
-
-# # Log file
-# LOG_FILE="/tmp/start_application.log"
-# INSTALL_LOG="/tmp/npm_install.log"
-
-# # Function to log messages
-# log_message() {
-#   echo "$(date -u): $1" >> "$LOG_FILE"
-#   echo "$(date -u): $1"
-# }
-
-# log_message "Node.js version: $(node --version)"
-# log_message "npm version: $(npm --version)"
-# log_message "started.............."
-
-# # # Install system dependencies for sharp
-# sudo apt-get update
-# # sudo apt-get install -y libvips-dev
-
-# # # Navigate to the application directory
-# cd /var/www/html || { log_message "Failed to change directory"; exit 1; }
-
-# # # Remove node_modules and reinstall
-# rm -rf node_modules package-lock.json
-
-# # # Clear npm cache
-# npm cache clean --force
-
-# # # Reset npm configuration
-# # npm config delete prefix
-# # npm config set prefix "${HOME}/.npm-global"
-
-# # # Create user-specific global npm directory
-# # mkdir -p "${HOME}/.npm-global"
-
-# # # Add the new path to system PATH
-# # echo 'export PATH=$HOME/.npm-global/bin:$PATH' >> ~/.bashrc
-# # source ~/.bashrc
-
-# # # Install dependencies
-# npm install --unsafe-perm
-
-# # log_message "Ratoons API Going To Start..............!!!!!!!!"
-
-# # # Install nodemon globally for the current user
-# # npm install -g nodemon
-
-# # # Install node-libcurl separately
-# # npm install node-libcurl --unsafe-perm
-
-# # log_message 'End---------->'
-# npm install -g nodemon >> "$INSTALL_LOG" 2>&1
-# # Run the application
-# log_message 'Starting the application...'
-# npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1
-
-
-#!/bin/bash
 
 # Log file
-LOG_FILE="/tmp/start_application.log"
-INSTALL_LOG="/tmp/npm_install.log"
+# LOG_FILE="/tmp/start_application.log"
+# INSTALL_LOG="/tmp/npm_install.log"
 
 # Function to log messages
 log_message() {
@@ -75,35 +17,43 @@ log_message "Node.js version: $(node --version)"
 log_message "npm version: $(npm --version)"
 log_message "started.............."
 
-# Install system dependencies for sharp
-sudo apt-get update
-sudo apt-get install -y build-essential libvips-dev python2
+# # Install system dependencies for sharp
+sudo yum update
+# sudo apt-get install -y libvips-dev
 
-# Set Python path for node-gyp
-sudo npm config set python /usr/bin/python2
-
-# Navigate to the application directory
+# # Navigate to the application directory
 cd /var/www/html || { log_message "Failed to change directory"; exit 1; }
 
-# Remove node_modules and reinstall
-sudo rm -rf node_modules package-lock.json
+# # Remove node_modules and reinstall
+rm -rf node_modules package-lock.json
 
-# Clear npm cache
-sudo npm cache clean --force
+# # Clear npm cache
+# npm cache clean --force
 
-# Install node-gyp globally
-sudo npm install -g node-gyp
+# # Reset npm configuration
+# npm config delete prefix
+# npm config set prefix "${HOME}/.npm-global"
 
-# Install sharp with prebuilt binaries
-sudo npm install sharp --sharp-binary-host=https://github.com/lovell/sharp-libvips/releases/download/v8.15.1/ --unsafe-perm
+# # Create user-specific global npm directory
+# mkdir -p "${HOME}/.npm-global"
 
-# Reinstall dependencies
-sudo npm install --unsafe-perm
+# # Add the new path to system PATH
+# echo 'export PATH=$HOME/.npm-global/bin:$PATH' >> ~/.bashrc
+# source ~/.bashrc
 
-log_message 'End---------->'
-sudo npm install -g nodemon >> "$INSTALL_LOG" 2>&1
+# # Install dependencies
+npm install --unsafe-perm
 
+# log_message "Ratoons API Going To Start..............!!!!!!!!"
+
+# # Install nodemon globally for the current user
+# npm install -g nodemon
+
+# # Install node-libcurl separately
+# npm install node-libcurl --unsafe-perm
+
+# log_message 'End---------->'
+npm install -g nodemon >> "$INSTALL_LOG" 2>&1
 # Run the application
 log_message 'Starting the application...'
-sudo npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1
-
+npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1

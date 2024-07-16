@@ -22,7 +22,7 @@ log_message() {
 # # sudo apt-get install -y libvips-dev
 
 # # # Navigate to the application directory
-# cd /var/www/html || { log_message "Failed to change directory"; exit 1; }
+cd /var/www/html || { log_message "Failed to change directory"; exit 1; }
 
 # # # Remove node_modules and reinstall
 # rm -rf node_modules package-lock.json

@@ -1,11 +1,11 @@
 
-LOG_FILE="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/start_application.log"
-INSTALL_LOG="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/npm_install.log"
+# LOG_FILE="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/start_application.log"
+# INSTALL_LOG="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/npm_install.log"
 
 
 # Log file
-# LOG_FILE="/tmp/start_application.log"
-# INSTALL_LOG="/tmp/npm_install.log"
+LOG_FILE="/tmp/start_application.log"
+INSTALL_LOG="/tmp/npm_install.log"
 
 # Function to log messages
 log_message() {
@@ -18,7 +18,7 @@ log_message "npm version: $(npm --version)"
 log_message "started.............."
 
 # # Install system dependencies for sharp
-sudo yum update
+sudo apt-get update
 # sudo apt-get install -y libvips-dev
 
 # # Navigate to the application directory

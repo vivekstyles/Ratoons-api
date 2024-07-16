@@ -9,15 +9,15 @@ log_message "Starting after_install.sh script"
 
 # Install build essentials and libcurl
 log_message "Installing build essentials and libcurl..."
-sudo yum update
-sudo yum install -y build-essential python3 libcurl4-openssl-dev
+sudo apt-get update
+# sudo apt-get install -y build-essential python3 libcurl4-openssl-dev
 
 # Install Node.js LTS version if not already installed
 if ! command -v node &> /dev/null
 then
     log_message "Node.js not found. Installing Node.js LTS..."
-    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-    sudo yum install -y nodejs
+    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+    sudo apt-get install -y nodejs
     log_message "Node.js LTS installation completed"
 else
     log_message "Node.js is already installed"
@@ -52,5 +52,3 @@ else
         exit 1
     fi
 fi
-
-log_message "after_install.sh script completed"

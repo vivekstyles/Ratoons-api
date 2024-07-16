@@ -4,14 +4,14 @@
 
 
 # # Log file
-# LOG_FILE="/tmp/start_application.log"
-# INSTALL_LOG="/tmp/npm_install.log"
+LOG_FILE="/tmp/start_application.log"
+INSTALL_LOG="/tmp/npm_install.log"
 
-# # Function to log messages
-# log_message() {
-#   echo "$(date -u): $1" >> "$LOG_FILE"
-#   echo "$(date -u): $1"
-# }
+# Function to log messages
+log_message() {
+  echo "$(date -u): $1" >> "$LOG_FILE"
+  echo "$(date -u): $1"
+}
 
 # log_message "Node.js version: $(node --version)"
 # log_message "npm version: $(npm --version)"
@@ -55,5 +55,5 @@
 # # log_message 'End---------->'
 # npm install -g nodemon >> "$INSTALL_LOG" 2>&1
 # Run the application
-# log_message 'Starting the application...'
+log_message 'Starting the application...'
 npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1

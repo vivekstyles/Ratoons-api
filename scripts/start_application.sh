@@ -42,7 +42,7 @@ cd /var/www/html || { log_message "Failed to change directory"; exit 1; }
 # # source ~/.bashrc
 
 # # # Install dependencies
-npm install --unsafe-perm
+sudo npm install --unsafe-perm
 
 # # log_message "Ratoons API Going To Start..............!!!!!!!!"
 

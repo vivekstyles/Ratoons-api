@@ -13,47 +13,73 @@ log_message() {
   echo "$(date -u): $1"
 }
 
-log_message "Node.js version: $(node --version)"
-log_message "npm version: $(npm --version)"
-log_message "started.............."
+# log_message "Node.js version: $(node --version)"
+# log_message "npm version: $(npm --version)"
+# log_message "started.............."
 
-# # Install system dependencies for sharp
+# # # Install system dependencies for sharp
+# sudo apt-get update
+# # sudo apt-get install -y libvips-dev
+
+# # # Navigate to the application directory
+# cd /var/www/html || { log_message "Failed to change directory"; exit 1; }
+
+# # # Remove node_modules and reinstall
+# rm -rf node_modules package-lock.json
+
+# # # Clear npm cache
+# npm cache clean --force
+
+# # # Reset npm configuration
+# # npm config delete prefix
+# # npm config set prefix "${HOME}/.npm-global"
+
+# # # Create user-specific global npm directory
+# # mkdir -p "${HOME}/.npm-global"
+
+# # # Add the new path to system PATH
+# # echo 'export PATH=$HOME/.npm-global/bin:$PATH' >> ~/.bashrc
+# # source ~/.bashrc
+
+# # # Install dependencies
+# npm install --unsafe-perm
+
+# # log_message "Ratoons API Going To Start..............!!!!!!!!"
+
+# # # Install nodemon globally for the current user
+# # npm install -g nodemon
+
+# # # Install node-libcurl separately
+# # npm install node-libcurl --unsafe-perm
+
+# # log_message 'End---------->'
+# npm install -g nodemon >> "$INSTALL_LOG" 2>&1
+# # Run the application
+# log_message 'Starting the application...'
+
+#!/bin/bash
+
+# Update Node.js and npm
+nvm install node
+nvm use node
+npm install -g npm
+
+# Clean and reinstall node modules
+cd /var/www/html
+rm -rf node_modules
+npm install
+
+# Install build tools
 sudo apt-get update
-# sudo apt-get install -y libvips-dev
+sudo apt-get install -y build-essential python3
 
-# # Navigate to the application directory
-cd /var/www/html || { log_message "Failed to change directory"; exit 1; }
+# Update node-gyp
+npm install -g node-gyp
 
-# # Remove node_modules and reinstall
-rm -rf node_modules package-lock.json
+# Set Python path for node-gyp
+npm config set python /usr/bin/python3
 
-# # Clear npm cache
-npm cache clean --force
+# Install sharp with prebuilt binaries
+npm install sharp --sharp-binary-host=https://github.com/lovell/sharp-libvips/releases/download/v8.15.1/
 
-# # Reset npm configuration
-# npm config delete prefix
-# npm config set prefix "${HOME}/.npm-global"
-
-# # Create user-specific global npm directory
-# mkdir -p "${HOME}/.npm-global"
-
-# # Add the new path to system PATH
-# echo 'export PATH=$HOME/.npm-global/bin:$PATH' >> ~/.bashrc
-# source ~/.bashrc
-
-# # Install dependencies
-npm install --unsafe-perm
-
-# log_message "Ratoons API Going To Start..............!!!!!!!!"
-
-# # Install nodemon globally for the current user
-# npm install -g nodemon
-
-# # Install node-libcurl separately
-# npm install node-libcurl --unsafe-perm
-
-# log_message 'End---------->'
-npm install -g nodemon >> "$INSTALL_LOG" 2>&1
-# Run the application
-log_message 'Starting the application...'
 npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1

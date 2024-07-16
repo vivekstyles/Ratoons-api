@@ -1,11 +1,11 @@
 
-# # LOG_FILE="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/start_application.log"
-# # INSTALL_LOG="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/npm_install.log"
+LOG_FILE="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/start_application.log"
+INSTALL_LOG="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/npm_install.log"
 
 
 # # Log file
-LOG_FILE="/tmp/start_application.log"
-INSTALL_LOG="/tmp/npm_install.log"
+# LOG_FILE="/tmp/start_application.log"
+# INSTALL_LOG="/tmp/npm_install.log"
 
 # Function to log messages
 log_message() {
@@ -54,6 +54,17 @@ log_message() {
 
 # # log_message 'End---------->'
 # npm install -g nodemon >> "$INSTALL_LOG" 2>&1
+
+log_message "Checking for processes on port 1533..."
+PORT_PID=$(sudo lsof -t -i:1533)
+if [ -n "$PORT_PID" ]; then
+    log_message "Killing process on port 1533 (PID: $PORT_PID)"
+    sudo kill -9 $PORT_PID
+    sleep 2  # Wait a bit to ensure the port is freed
+else
+    log_message "No process found running on port 1533"
+fi
+
 # Run the application
 log_message 'Starting the application...'
-npx --yes nodemon ratoons.js
+npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1

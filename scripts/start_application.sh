@@ -83,24 +83,24 @@ sudo apt-get install -y build-essential libvips-dev python3
 cd /var/www/html || { log_message "Failed to change directory"; exit 1; }
 
 # Remove node_modules and reinstall
-rm -rf node_modules package-lock.json
+sudo rm -rf node_modules package-lock.json
 
 # Clear npm cache
-npm cache clean --force
+sudo npm cache clean --force
 
 # Set Python path for node-gyp
-npm config set python /usr/bin/python3
+sudo npm config set python /usr/bin/python3
 
 # Install node-gyp globally
-npm install -g node-gyp
+sudo npm install -g node-gyp
 
 # Reinstall dependencies
-npm install --unsafe-perm
+sudo npm install --unsafe-perm
 
 log_message 'End---------->'
-npm install -g nodemon >> "$INSTALL_LOG" 2>&1
+sudo npm install -g nodemon >> "$INSTALL_LOG" 2>&1
 
 # Run the application
 log_message 'Starting the application...'
-npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1
+sudo npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1
 

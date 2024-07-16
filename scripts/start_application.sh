@@ -1,11 +1,11 @@
 
-LOG_FILE="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/start_application.log"
-INSTALL_LOG="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/npm_install.log"
+# LOG_FILE="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/start_application.log"
+# INSTALL_LOG="/home/vivek-s/Public/ratoons/Ratoons-api/scripts/npm_install.log"
 
 
 # # Log file
-# LOG_FILE="/tmp/start_application.log"
-# INSTALL_LOG="/tmp/npm_install.log"
+LOG_FILE="/tmp/start_application.log"
+INSTALL_LOG="/tmp/npm_install.log"
 
 # Function to log messages
 log_message() {

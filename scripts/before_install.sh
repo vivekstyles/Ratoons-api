@@ -63,6 +63,12 @@ echo "Removed existing Node.js and npm installations" >> /tmp/deployment_log.txt
 # Install Node.js and npm
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo bash -
 sudo apt-get install -y nodejs
+sudo apt-get update
+sudo apt-get install -y build-essential
+sudo apt-get install -y libcurl4-openssl-dev
+sudo apt-get install -y python3 python3-pip
+sudo apt-get install -y nodejs-dev node-gyp libssl1.0-dev
+
 
 # Log Node.js installation
 echo "Installed Node.js and npm" >> /tmp/deployment_log.txt

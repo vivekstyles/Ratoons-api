@@ -27,8 +27,8 @@ cd /var/www/html || { log_message "Failed to change directory"; exit 1; }
 # # # Remove node_modules and reinstall
 # rm -rf node_modules package-lock.json
 
-# # # Clear npm cache
-# # npm cache clean --force
+# Clear npm cache
+npm cache clean --force
 
 # # # Reset npm configuration
 # # npm config delete prefix

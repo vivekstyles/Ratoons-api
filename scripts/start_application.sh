@@ -67,5 +67,5 @@ fi
 
 # Run the application
 log_message 'Starting the application...'
-npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1
-log_message 'Done'
+nohup npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1
+log_message 'Ratoons Successfully Started!!!'

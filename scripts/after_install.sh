@@ -65,7 +65,7 @@ log_message "Starting after_install.sh script"
 # Install build essentials and libcurl
 log_message "Installing build essentials and libcurl..."
 sudo apt-get update
-sudo apt-get install -y build-essential python3 libcurl4-openssl-dev
+# sudo apt-get install -y build-essential python3 libcurl4-openssl-dev
 
 # Install Node.js LTS version if not already installed
 if ! command -v node &> /dev/null

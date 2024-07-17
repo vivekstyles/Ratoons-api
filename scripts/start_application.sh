@@ -67,5 +67,15 @@ fi
 
 # Run the application
 log_message 'Starting the application...'
-nohup npx --yes nodemon ratoons.js >> "$INSTALL_LOG" 2>&1
-log_message 'Ratoons Successfully Started!!!'
+node ratoons.js >> "$INSTALL_LOG" 2>&1
+
+# Check if the application started successfully
+if [ $? -eq 0 ]; {
+    log_message 'Ratoons Successfully Started!!!'
+} else {
+    log_message 'Error starting Ratoons.'
+    exit 1
+}
+
+# Log the end of the script
+log_message 'Script completed.'
